@@ -1,10 +1,35 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import {AuthenticationService} from "./services/authentication.service";
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   title = 'front-end';
+
+
+  constructor(private authenticationService:AuthenticationService) {
+  }
+
+  ngOnInit(): void {
+    this.authenticationService.loadToken()
+  }
+
+  isAdmin(){
+    return this.authenticationService.isAdmin()
+  }
+  isUser(){
+    return this.authenticationService.isUser()
+  }
+
+  isAuthenticated(){
+    return this.authenticationService.isAuthenticated()
+  }
+  logOut(){
+    this.authenticationService.logout();
+  }
+
+
 }

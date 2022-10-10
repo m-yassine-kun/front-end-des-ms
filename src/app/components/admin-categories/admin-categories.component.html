@@ -1,0 +1,66 @@
+<div class="col-md-12">
+  <div class="panel panel-default">
+    <div class="panel-heading">Gestion of Categories</div>
+    <div class="panel-body">
+      <div>
+        <button class="btn btn-success" (click)="onNewCat()">
+          <span class="glyphicon glyphicon-plus">+</span>
+        </button>
+      </div>
+      <p></p>
+      <div *ngIf="new_cat_mode" class="col-md-6">
+        <form #f="ngForm" (ngSubmit)="onSaveCat(f.value)">
+
+            <div class="form-group">
+              <label class="control-label">Name</label>
+              <input type="text" name="name" ngModel class="form-control">
+            </div>
+<!--            <div class="form-group">-->
+<!--              <label class="control-label">Password</label>-->
+<!--              <input type="password" name="password" ngModel class="form-control">-->
+<!--            </div>-->
+            <button type="submit" class="btn btn-success mt-2">Save</button>
+
+        </form>
+      </div>
+      <div *ngIf="edit_cat_mode" class="col-md-6">
+        <form #f="ngForm" (ngSubmit)="onUpdateCat(f.value)">
+
+          <div class="form-group">
+            <label class="control-label">Name</label>
+            <input type="text" name="name" ngModel class="form-control" [(ngModel)]="currentCategorie.name">
+          </div>
+          <!--            <div class="form-group">-->
+          <!--              <label class="control-label">Password</label>-->
+          <!--              <input type="password" name="password" ngModel class="form-control">-->
+          <!--            </div>-->
+          <button type="submit" class="btn btn-warning mt-2">Update</button>
+
+        </form>
+      </div>
+      <table class="table table-striped" *ngIf="categories">
+        <thead><tr>
+          <th>Name</th>
+          <th>Actions</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let c of categories._embedded.categories">
+          <td>{{c.name}}</td>
+
+          <td>
+            <button class="btn btn-danger" (click)="onDeleteCat(c)">
+              <span class="glyphicon glyphicon-remove">X</span>
+            </button>
+
+            <button class="btn btn-warning   ml-3" (click)="onEditCat(c)">
+              <span class="glyphicon glyphicon-edit">Edit</span>
+            </button>
+          </td>
+
+        </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
